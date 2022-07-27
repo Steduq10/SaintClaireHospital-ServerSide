@@ -20,7 +20,7 @@ public class Patient {
     private String DNI;
     private Long numberOfAppointments =0L;
 
-    List<String> dates_of_appointments = new ArrayList<>();
+    //List<String> dates_of_appointments = new ArrayList<>();
 
     public void numbAppointments(){
         this.numberOfAppointments ++;
