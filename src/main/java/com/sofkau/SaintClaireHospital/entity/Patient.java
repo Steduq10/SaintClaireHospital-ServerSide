@@ -11,13 +11,16 @@ import java.util.List;
 @Data
 public class Patient {
 
-@Id
-@GeneratedValue(strategy = GenerationType.IDENTITY)
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @OneToMany(fetch = FetchType.EAGER)
+    private MedicalSpecialty medicalSpecialty;
+
     private String name;
     private int age;
-    private String DNI;
+    private Long DNI;
     private Long numberOfAppointments =0L;
 
     //List<String> dates_of_appointments = new ArrayList<>();

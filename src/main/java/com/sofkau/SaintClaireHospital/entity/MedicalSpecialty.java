@@ -17,10 +17,6 @@ public class MedicalSpecialty {
     private String name;
     private String physicianCharge;
 
-    @Autowired
-    private Patient patient;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Location location;
 
 }
