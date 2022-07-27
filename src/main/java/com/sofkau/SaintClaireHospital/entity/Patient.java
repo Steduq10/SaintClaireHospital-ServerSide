@@ -1,4 +1,4 @@
-package com.sofkau.SaintClaireHospital.DTO;
+package com.sofkau.SaintClaireHospital.entity;
 
 import lombok.Data;
 
