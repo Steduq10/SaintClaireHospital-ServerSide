@@ -45,16 +45,21 @@ public class PatientServiceImplementation implements PatientService {
 
     @Override
     public Patient findPatientByID(Long id) {
-        return null;
+        Objects.requireNonNull(id);
+        return patientRepository.findById(id).get();
     }
 
     @Override
     public Patient updatePatient(Patient patient) {
-        return null;
+        Objects.requireNonNull(patient);
+        Objects.requireNonNull(patient.getId());
+        patient.numbAppointments(); //Aumenta el número , revisar si funciona
+        patientRepository.save(patient);
+        return patient;
     }
 
     @Override
     public void deletePatient(long id) {
-
+        patientRepository.deleteById(id);
     }
 }
