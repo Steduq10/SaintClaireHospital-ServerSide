@@ -10,14 +10,25 @@ public interface PatientService {
 
     public List<PatientMedicalSpecialtyDTO> getAllPatientMedicalSpecialty();
 
-    public PatientMedicalSpecialtyDTO convertEntityToDTO(Patient patient);
+    public PatientMedicalSpecialtyDTO convertEntityToDTO(MedicalSpecialty medicalSpecialty);
 
-    Patient savePatient (Patient patient);
+    MedicalSpecialty saveSpecialty (MedicalSpecialty medicalSpecialty);
 
-    Patient findPatientByID(Long id);
+    MedicalSpecialty findSpecialtyByID(Long id);
 
-    Patient updatePatient(Patient patient);
+    MedicalSpecialty updateSpecialty(MedicalSpecialty medicalSpecialty);
 
     //void deletePatient(long id);
+    void deleteSpecialty (MedicalSpecialty medicalSpecialty);
+
+
+    List<Patient> findAllPatient();
+
+    MedicalSpecialty savePatient(Patient patient);
+
+    Patient findPatient (Long id);
+
+    Patient updatePatient (Patient patient);
+
     void deletePatient(Patient patient);
 }

@@ -1,7 +1,7 @@
 package com.sofkau.SaintClaireHospital.dto;
 
 import com.sofkau.SaintClaireHospital.entity.MedicalSpecialty;
-import com.sofkau.SaintClaireHospital.entity.Patient;
+
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 

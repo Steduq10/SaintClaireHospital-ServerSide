@@ -1,6 +1,7 @@
 package com.sofkau.SaintClaireHospital.service;
 
 import com.sofkau.SaintClaireHospital.dto.PatientMedicalSpecialtyDTO;
+import com.sofkau.SaintClaireHospital.entity.MedicalSpecialty;
 import com.sofkau.SaintClaireHospital.entity.Patient;
 import com.sofkau.SaintClaireHospital.repository.MedicalSpecialtyRepository;
 import com.sofkau.SaintClaireHospital.repository.PatientRepository;
@@ -15,42 +16,75 @@ import java.util.stream.Collectors;
 public class PatientServiceImplementation implements PatientService {
 
     @Autowired
-    //private PatientRepository patientRepository;
-    private PatientRepository patientRepository;
-    private final MedicalSpecialtyRepository medicalSpecialtyRepository;
 
-    public PatientServiceImplementation(MedicalSpecialtyRepository medicalSpecialtyRepository) {
-        this.medicalSpecialtyRepository = medicalSpecialtyRepository;
-    }
+    private PatientRepository patientRepository;
+
+    @Autowired
+    private MedicalSpecialtyRepository medicalSpecialtyRepository;
 
     @Override
     public List<PatientMedicalSpecialtyDTO> getAllPatientMedicalSpecialty(){
-        return patientRepository.findAll()
+        return medicalSpecialtyRepository.findAll()
                 .stream()
                 .map(this::convertEntityToDTO)
                 .collect(Collectors.toList());
     }
     //private
     @Override
-    public PatientMedicalSpecialtyDTO convertEntityToDTO(Patient patient){
+    public PatientMedicalSpecialtyDTO convertEntityToDTO(MedicalSpecialty medicalSpecialty){
         PatientMedicalSpecialtyDTO patientMedicalSpecialtyDTO = new PatientMedicalSpecialtyDTO();
-        patientMedicalSpecialtyDTO.setPatientID(patient.getId());
-        patientMedicalSpecialtyDTO.setName(patient.getName());
+        patientMedicalSpecialtyDTO.setPatientID(medicalSpecialty.getId());
+        patientMedicalSpecialtyDTO.setName(medicalSpecialty.getName());
         //patientMedicalSpecialtyDTO.setMedicalSpecialty(patient.getMedicalSpecialty());
 
         return patientMedicalSpecialtyDTO;
     }
 
-
-
     @Override
-    public Patient savePatient(Patient patient) {
-        Objects.requireNonNull(patient);
-        return patientRepository.save(patient);
+    public MedicalSpecialty saveSpecialty(MedicalSpecialty medicalSpecialty) {
+        Objects.requireNonNull(medicalSpecialty);
+        return medicalSpecialtyRepository.save(medicalSpecialty);
     }
 
     @Override
-    public Patient findPatientByID(Long id) {
+    public MedicalSpecialty findSpecialtyByID(Long id) {
+        Objects.requireNonNull(id);
+        return medicalSpecialtyRepository.findById(id).get();
+    }
+
+    @Override
+    public MedicalSpecialty updateSpecialty(MedicalSpecialty medicalSpecialty) {
+        Objects.requireNonNull(medicalSpecialty);
+        Objects.requireNonNull(medicalSpecialty.getId());
+        //medicalSpecialty.numbAppointments(); //Aumenta el número , revisar si funciona
+        medicalSpecialtyRepository.save(medicalSpecialty);
+        return medicalSpecialty;
+    }
+
+    @Override
+    public void deleteSpecialty(MedicalSpecialty medicalSpecialty) {
+        MedicalSpecialty specialtyToBeDeleted = medicalSpecialtyRepository.findById(medicalSpecialty.getId()).get();
+        if (specialtyToBeDeleted.getPatientList().size() >= 0) {
+            specialtyToBeDeleted.getPatientList().forEach(patient -> patientRepository.deleteById(patient.getId()));
+        }
+        medicalSpecialtyRepository.deleteById(medicalSpecialty.getId());
+    }
+
+    @Override
+    public List<Patient> findAllPatient() {
+        return patientRepository.findAll();
+    }
+
+    @Override
+    public MedicalSpecialty savePatient(Patient patient) {
+        MedicalSpecialty medicalSpecialty = medicalSpecialtyRepository.findById(patient.getFkDNI()).get();
+        medicalSpecialty.addPatient(patient);
+        patientRepository.save(patient);
+        return medicalSpecialtyRepository.save(medicalSpecialty);
+    }
+
+    @Override
+    public Patient findPatient(Long id) {
         Objects.requireNonNull(id);
         return patientRepository.findById(id).get();
     }
@@ -66,11 +100,6 @@ public class PatientServiceImplementation implements PatientService {
 
     @Override
     public void deletePatient(Patient patient) {
-        //patientRepository.deleteById(id);
-        Patient patientToBeDeleted = patientRepository.findById(patient.getId()).get();
-        if (patientToBeDeleted.getMedicalSpecialtyList().size() >= 0) {
-            patientToBeDeleted.getMedicalSpecialtyList().forEach(medicalSpecialty -> medicalSpecialtyRepository.deleteById(medicalSpecialty.getId()));
-        }
         patientRepository.deleteById(patient.getId());
     }
 }
