@@ -6,17 +6,22 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity(name = "Patient")
 @Table(name = "patient")
 @Data
 public class Patient {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private MedicalSpecialty medicalSpecialty;
+    @OneToMany(
+            cascade = CascadeType.ALL,
+            fetch = FetchType.EAGER)
+    List<MedicalSpecialty> medicalSpecialtyList = new ArrayList<>();
+
+
+    //private MedicalSpecialty medicalSpecialty;
 
     private String name;
     private int age;
@@ -25,9 +30,13 @@ public class Patient {
 
     //List<String> dates_of_appointments = new ArrayList<>();
 
+
     public void numbAppointments(){
         this.numberOfAppointments ++;
     }
 
-
+    public Patient addSpecialty(MedicalSpecialty medicalSpecialty){
+        this.medicalSpecialtyList.add(medicalSpecialty);
+        return this;
+    }
 }

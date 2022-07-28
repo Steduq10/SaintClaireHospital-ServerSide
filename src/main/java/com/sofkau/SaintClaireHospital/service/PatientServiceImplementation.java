@@ -1,7 +1,6 @@
 package com.sofkau.SaintClaireHospital.service;
 
 import com.sofkau.SaintClaireHospital.dto.PatientMedicalSpecialtyDTO;
-import com.sofkau.SaintClaireHospital.entity.MedicalSpecialty;
 import com.sofkau.SaintClaireHospital.entity.Patient;
 import com.sofkau.SaintClaireHospital.repository.MedicalSpecialtyRepository;
 import com.sofkau.SaintClaireHospital.repository.PatientRepository;
@@ -18,6 +17,11 @@ public class PatientServiceImplementation implements PatientService {
     @Autowired
     //private PatientRepository patientRepository;
     private PatientRepository patientRepository;
+    private final MedicalSpecialtyRepository medicalSpecialtyRepository;
+
+    public PatientServiceImplementation(MedicalSpecialtyRepository medicalSpecialtyRepository) {
+        this.medicalSpecialtyRepository = medicalSpecialtyRepository;
+    }
 
     @Override
     public List<PatientMedicalSpecialtyDTO> getAllPatientMedicalSpecialty(){
@@ -32,10 +36,12 @@ public class PatientServiceImplementation implements PatientService {
         PatientMedicalSpecialtyDTO patientMedicalSpecialtyDTO = new PatientMedicalSpecialtyDTO();
         patientMedicalSpecialtyDTO.setPatientID(patient.getId());
         patientMedicalSpecialtyDTO.setName(patient.getName());
-        patientMedicalSpecialtyDTO.setMedicalSpecialty(patient.getMedicalSpecialty());
+        //patientMedicalSpecialtyDTO.setMedicalSpecialty(patient.getMedicalSpecialty());
 
         return patientMedicalSpecialtyDTO;
     }
+
+
 
     @Override
     public Patient savePatient(Patient patient) {
@@ -59,7 +65,12 @@ public class PatientServiceImplementation implements PatientService {
     }
 
     @Override
-    public void deletePatient(long id) {
-        patientRepository.deleteById(id);
+    public void deletePatient(Patient patient) {
+        //patientRepository.deleteById(id);
+        Patient patientToBeDeleted = patientRepository.findById(patient.getId()).get();
+        if (patientToBeDeleted.getMedicalSpecialtyList().size() >= 0) {
+            patientToBeDeleted.getMedicalSpecialtyList().forEach(medicalSpecialty -> medicalSpecialtyRepository.deleteById(medicalSpecialty.getId()));
+        }
+        patientRepository.deleteById(patient.getId());
     }
 }

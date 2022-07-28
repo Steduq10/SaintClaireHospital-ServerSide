@@ -1,7 +1,9 @@
 package com.sofkau.SaintClaireHospital.service;
 
 import com.sofkau.SaintClaireHospital.entity.MedicalSpecialty;
+import com.sofkau.SaintClaireHospital.entity.Patient;
 import com.sofkau.SaintClaireHospital.repository.MedicalSpecialtyRepository;
+import com.sofkau.SaintClaireHospital.repository.PatientRepository;
 
 import java.util.List;
 import java.util.Objects;
@@ -9,7 +11,7 @@ import java.util.Objects;
 public class MedicalSpecialtyServiceImplementation implements MedicalSpecialtyService{
 
     private final MedicalSpecialtyRepository medicalSpecialtyRepository;
-
+    private PatientRepository patientRepository;
     public MedicalSpecialtyServiceImplementation(MedicalSpecialtyRepository medicalSpecialtyRepository) {
         this.medicalSpecialtyRepository = medicalSpecialtyRepository;
     }
@@ -20,9 +22,12 @@ public class MedicalSpecialtyServiceImplementation implements MedicalSpecialtySe
     }
 
     @Override
-    public MedicalSpecialty saveMedicalSpecialty(MedicalSpecialty medicalSpecialty) {
+    public Patient saveMedicalSpecialty(MedicalSpecialty medicalSpecialty) {
+        Patient patient = patientRepository.findById(medicalSpecialty.getFkDNI()).get();
         Objects.requireNonNull(medicalSpecialty);
-        return medicalSpecialtyRepository.save(medicalSpecialty);
+        patient.addSpecialty(medicalSpecialty);
+        medicalSpecialtyRepository.save(medicalSpecialty);
+        return patientRepository.save(patient);
     }
 
     @Override
@@ -40,7 +45,9 @@ public class MedicalSpecialtyServiceImplementation implements MedicalSpecialtySe
     }
 
     @Override
-    public void deleteMedicalSpecialty(Long id) {
-        medicalSpecialtyRepository.deleteById(id);
+    public void deleteMedicalSpecialty(MedicalSpecialty medicalSpecialty) {
+
+        //medicalSpecialtyRepository.deleteById(id);
+        medicalSpecialtyRepository.deleteById(medicalSpecialty.getId());
     }
 }
