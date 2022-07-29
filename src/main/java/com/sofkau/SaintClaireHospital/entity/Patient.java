@@ -15,36 +15,24 @@ public class Patient {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    //List<String> appointmentsDate = new ArrayList<>();
-    /*@OneToMany(
-            cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
-    List<MedicalSpecialty> medicalSpecialtyList = new ArrayList<>();*/
-
-
-    //private MedicalSpecialty medicalSpecialty;
-
     private String name;
     private int age;
-    //private Long DNI;
-    private Long fkDNI;
+    private Long identificationNumber;
     private Long numberOfAppointments =0L;
 
+    private Long fkSpecialtyId;
 
-    //List<String> dates_of_appointments = new ArrayList<>();
-
+    private String dateAppointment;
 
     public void numbAppointments(){
         this.numberOfAppointments ++;
     }
 
-    /*public Patient addSpecialty(MedicalSpecialty medicalSpecialty){
-        this.medicalSpecialtyList.add(medicalSpecialty);
+
+
+    public Patient addDate(String date) {
+
         return this;
-    }*/
-/*
-    public Patient addDate(String date){
-        this.appointmentsDate.add(date);
-        return this;
-    }*/
+    }
+
 }

@@ -12,7 +12,7 @@ public interface PatientService {
 
     public PatientMedicalSpecialtyDTO convertEntityToDTO(MedicalSpecialty medicalSpecialty);
 
-    MedicalSpecialty saveSpecialty (MedicalSpecialty medicalSpecialty);
+    public MedicalSpecialty saveSpecialty (MedicalSpecialty medicalSpecialty);
 
     MedicalSpecialty findSpecialtyByID(Long id);
 

@@ -33,8 +33,10 @@ public class PatientServiceImplementation implements PatientService {
     @Override
     public PatientMedicalSpecialtyDTO convertEntityToDTO(MedicalSpecialty medicalSpecialty){
         PatientMedicalSpecialtyDTO patientMedicalSpecialtyDTO = new PatientMedicalSpecialtyDTO();
-        patientMedicalSpecialtyDTO.setPatientID(medicalSpecialty.getId());
+        patientMedicalSpecialtyDTO.setId(medicalSpecialty.getId());
         patientMedicalSpecialtyDTO.setName(medicalSpecialty.getName());
+        patientMedicalSpecialtyDTO.setPhysicianCharge(medicalSpecialty.getPhysicianCharge());
+        patientMedicalSpecialtyDTO.setPatientList(medicalSpecialty.getPatientList());
         //patientMedicalSpecialtyDTO.setMedicalSpecialty(patient.getMedicalSpecialty());
 
         return patientMedicalSpecialtyDTO;
@@ -77,9 +79,16 @@ public class PatientServiceImplementation implements PatientService {
 
     @Override
     public MedicalSpecialty savePatient(Patient patient) {
-        MedicalSpecialty medicalSpecialty = medicalSpecialtyRepository.findById(patient.getFkDNI()).get();
-        medicalSpecialty.addPatient(patient);
-        patientRepository.save(patient);
+        MedicalSpecialty medicalSpecialty = medicalSpecialtyRepository.findById(patient.getFkSpecialtyId()).get();
+        if(medicalSpecialty.getPatientList().contains(patient.getIdentificationNumber())){
+            patient.numbAppointments();
+            patientRepository.save(patient);
+        }else{
+            medicalSpecialty.addPatient(patient);
+            patient.numbAppointments();
+            patientRepository.save(patient);
+        }
+
         return medicalSpecialtyRepository.save(medicalSpecialty);
     }
 

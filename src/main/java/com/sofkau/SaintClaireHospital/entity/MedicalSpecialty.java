@@ -23,11 +23,13 @@ public class MedicalSpecialty {
 
     @OneToMany(
             cascade = CascadeType.ALL,
-            fetch = FetchType.EAGER)
-    List<Patient> patientList = new ArrayList<>();
+            fetch = FetchType.EAGER
+    )
+    private List<Patient> patientList = new ArrayList<>();
 
 
     public MedicalSpecialty addPatient(Patient patient){
+
         this.patientList.add(patient);
         return this;
     }

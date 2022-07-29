@@ -3,6 +3,7 @@ package com.sofkau.SaintClaireHospital.controller;
 import com.sofkau.SaintClaireHospital.dto.PatientMedicalSpecialtyDTO;
 import com.sofkau.SaintClaireHospital.entity.MedicalSpecialty;
 import com.sofkau.SaintClaireHospital.entity.Patient;
+import com.sofkau.SaintClaireHospital.service.PatientService;
 import com.sofkau.SaintClaireHospital.service.PatientServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -10,13 +11,18 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RestController
 @RequestMapping("hospital/")
-public class PatientController {
+public class Controller {
     @Autowired
-    private PatientServiceImplementation patientService;
+    private PatientService patientService;
 
-    @GetMapping("/patient")
+    @GetMapping
     public List<PatientMedicalSpecialtyDTO> getAllPatientMedicalSpecial(){
         return patientService.getAllPatientMedicalSpecialty();
+    }
+
+    @GetMapping("patient")
+    public List<Patient> getAllPatients(){
+        return patientService.findAllPatient();
     }
 
     @PostMapping("create/specialty")
