@@ -19,7 +19,7 @@ public interface PatientService {
     MedicalSpecialty updateSpecialty(MedicalSpecialty medicalSpecialty);
 
     //void deletePatient(long id);
-    void deleteSpecialty (MedicalSpecialty medicalSpecialty);
+    void deleteSpecialty (Long id);
 
 
     List<Patient> findAllPatient();
@@ -30,5 +30,5 @@ public interface PatientService {
 
     Patient updatePatient (Patient patient);
 
-    void deletePatient(Patient patient);
+    void deletePatient(Long id);
 }

@@ -36,13 +36,20 @@ public class Controller {
     }
 
     @DeleteMapping("delete/patient")
-    public void deletePatient(@RequestBody Patient patient){
-        patientService.deletePatient(patient);
+    public void deletePatient(@PathVariable Long id){
+        patientService.deletePatient(id);
     }
 
-    @DeleteMapping("delete/specialty")
+   /* @DeleteMapping("delete/specialty")
     public void deleteMedicalSpecialty(@RequestBody MedicalSpecialty medicalSpecialty){
         patientService.deleteSpecialty(medicalSpecialty);
+
+    }*/
+
+    @DeleteMapping("delete/specialty")
+    public void deleteMedicalSpecialty(@PathVariable Long id){
+        patientService.deleteSpecialty(id);
+
     }
 
     @PutMapping("update/specialty")
