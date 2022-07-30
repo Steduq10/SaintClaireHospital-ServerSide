@@ -63,19 +63,19 @@ public class PatientServiceImplementation implements PatientService {
         return medicalSpecialty;
     }
 
-    /*@Override
+    @Override
     public void deleteSpecialty(MedicalSpecialty medicalSpecialty) {
         MedicalSpecialty specialtyToBeDeleted = medicalSpecialtyRepository.findById(medicalSpecialty.getId()).get();
         if (specialtyToBeDeleted.getPatientList().size() >= 0) {
             specialtyToBeDeleted.getPatientList().forEach(patient -> patientRepository.deleteById(patient.getId()));
         }
         medicalSpecialtyRepository.deleteById(medicalSpecialty.getId());
-    }*/
+    }
 
-    @Override
+   /* @Override
     public void deleteSpecialty(Long id) {
         medicalSpecialtyRepository.deleteById(id);
-    }
+    }*/
 
     @Override
     public List<Patient> findAllPatient() {

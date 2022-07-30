@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 @RestController
 @RequestMapping("hospital/")
+@CrossOrigin("*")
 public class Controller {
     @Autowired
     private PatientService patientService;
@@ -20,11 +21,11 @@ public class Controller {
         return patientService.getAllPatientMedicalSpecialty();
     }
 
-    @GetMapping("patient")
+    /*@GetMapping("patient")
     public List<Patient> getAllPatients(){
         return patientService.findAllPatient();
     }
-
+*/
     @PostMapping("create/specialty")
     public MedicalSpecialty createPatient(@RequestBody MedicalSpecialty medicalSpecialty){
         return patientService.saveSpecialty(medicalSpecialty);
@@ -35,22 +36,22 @@ public class Controller {
         return  patientService.savePatient(patient);
     }
 
-    @DeleteMapping("delete/patient")
+    /*@DeleteMapping("delete/patient")
     public void deletePatient(@PathVariable Long id){
         patientService.deletePatient(id);
-    }
-
-   /* @DeleteMapping("delete/specialty")
-    public void deleteMedicalSpecialty(@RequestBody MedicalSpecialty medicalSpecialty){
-        patientService.deleteSpecialty(medicalSpecialty);
-
     }*/
 
     @DeleteMapping("delete/specialty")
+    public void deleteMedicalSpecialty(@RequestBody MedicalSpecialty medicalSpecialty){
+        patientService.deleteSpecialty(medicalSpecialty);
+
+    }
+
+    /*@DeleteMapping("delete/specialty")
     public void deleteMedicalSpecialty(@PathVariable Long id){
         patientService.deleteSpecialty(id);
 
-    }
+    }*/
 
     @PutMapping("update/specialty")
     public MedicalSpecialty updateSpecialty(@RequestBody MedicalSpecialty medicalSpecialty){

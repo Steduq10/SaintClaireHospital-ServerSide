@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Entity(name = "Patient")
 @Table(name = "patient")
 @Data
@@ -16,6 +17,8 @@ public class Patient {
     private Long id;
 
     private String name;
+
+
     private int age;
     private Long identificationNumber;
     private Long numberOfAppointments =0L;
