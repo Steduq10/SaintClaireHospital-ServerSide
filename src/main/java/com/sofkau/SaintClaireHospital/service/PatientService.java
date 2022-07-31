@@ -18,7 +18,7 @@ public interface PatientService {
 
     MedicalSpecialty updateSpecialty(MedicalSpecialty medicalSpecialty);
 
-    //void deletePatient(long id);
+
     void deleteSpecialty (MedicalSpecialty medicalSpecialty);
 
 

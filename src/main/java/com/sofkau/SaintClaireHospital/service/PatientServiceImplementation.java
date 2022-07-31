@@ -58,7 +58,7 @@ public class PatientServiceImplementation implements PatientService {
     public MedicalSpecialty updateSpecialty(MedicalSpecialty medicalSpecialty) {
         Objects.requireNonNull(medicalSpecialty);
         Objects.requireNonNull(medicalSpecialty.getId());
-        //medicalSpecialty.numbAppointments(); //Aumenta el número , revisar si funciona
+
         medicalSpecialtyRepository.save(medicalSpecialty);
         return medicalSpecialty;
     }
@@ -72,10 +72,6 @@ public class PatientServiceImplementation implements PatientService {
         medicalSpecialtyRepository.deleteById(medicalSpecialty.getId());
     }
 
-   /* @Override
-    public void deleteSpecialty(Long id) {
-        medicalSpecialtyRepository.deleteById(id);
-    }*/
 
     @Override
     public List<Patient> findAllPatient() {
@@ -107,7 +103,7 @@ public class PatientServiceImplementation implements PatientService {
     public Patient updatePatient(Patient patient) {
         Objects.requireNonNull(patient);
         Objects.requireNonNull(patient.getId());
-        patient.numbAppointments(); //Aumenta el número , revisar si funciona
+        patient.numbAppointments();
         patientRepository.save(patient);
         return patient;
     }

@@ -19,7 +19,7 @@ public class MedicalSpecialty {
     private String name;
     private String physicianCharge;
 
-    //private Long fkDNI;
+
 
     @OneToMany(
             cascade = CascadeType.ALL,

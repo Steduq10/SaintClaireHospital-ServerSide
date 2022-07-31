@@ -12,9 +12,6 @@ import java.util.List;
 @Data
 public class PatientMedicalSpecialtyDTO {
 
-   // @Autowired
-    //private MedicalSpecialty medicalSpecialty;
-    //private Patient patient;
 
     private Long id;
 
